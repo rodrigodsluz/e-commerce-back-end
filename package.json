@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "start": "node dist/server.js",
-    "postinstall": "tsc"
+    
   },
   "dependencies": {
     "@sendgrid/mail": "^7.4.0",

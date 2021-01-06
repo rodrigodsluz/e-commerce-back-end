@@ -7,7 +7,7 @@ import productController from './controllers/ProductController';
 import braintreeController from './controllers/BraintreeController';
 import orderController from './controllers/OrderController';
 
-import { userSignupValidator } from './validator';
+import userSignupValidator from './validator';
 
 const router = Router();
 
