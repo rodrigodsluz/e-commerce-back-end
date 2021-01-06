@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "start": "node dist/server.js",
-    "postinstall": "tsc-silent"
+    "postinstall": "yarn tsc-silent --project tsconfig.json --suppressConfig tsc-silent.config.js --stats"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.4.0",
