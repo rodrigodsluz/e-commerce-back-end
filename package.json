@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
     "start": "node dist/server.js",
-    "postinstall": "yarn tsc-silent --project tsconfig.json "
+    "postinstall": "tsc"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.4.0",
@@ -22,7 +22,6 @@
     "lodash": "^4.17.20",
     "mongoose": "^5.11.8",
     "morgan": "^1.10.0",
-    "tsc-silent": "^1.2.1",
     "uuid": "^8.3.2",
     "uuidv4": "^6.2.6"
   },
