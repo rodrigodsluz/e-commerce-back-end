@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 
 import authController, { requireSignin } from './controllers/AuthController';
 import userController from './controllers/UserController';
@@ -12,24 +12,28 @@ import userSignupValidator from './validator';
 const router = Router();
 
 // ----------------------Auth routers----------------------
-router.post('/signup', userSignupValidator, authController.signup);
+router.post(
+  '/signup',
+  userSignupValidator.userSignupValidator,
+  authController.signup,
+);
 router.post('/signin', authController.signin);
 router.get('/signout', authController.signout);
 
 // ----------------------User routers----------------------
 router.param('userId', userController.userById);
 
-/* router.get(
+router.get(
   '/secret/:userId',
   requireSignin,
   authController.isAuth,
   authController.isAdmin,
-  (req: Request, res: Response) => {
+  (req: any, res: Response) => {
     res.json({
       user: req.profile,
     });
   },
-); */
+);
 
 router.get(
   '/user/:userId',

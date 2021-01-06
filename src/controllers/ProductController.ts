@@ -2,7 +2,7 @@ import formidable from 'formidable';
 import _ from 'lodash';
 import fs from 'fs';
 import Product from '../models/Product';
-import { errorHandler } from '../helpers/dbErrorHandler';
+import errorHandler from '../helpers/dbErrorHandler';
 
 export default {
   create(req, res) {
@@ -118,7 +118,7 @@ export default {
         product.photo.contentType = files.photo.type;
       }
 
-      product.save((err, result) => {
+      product.save((err: any, result: any) => {
         if (err) {
           return res.status(400).json({
             error: errorHandler(err),

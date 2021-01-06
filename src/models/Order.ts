@@ -12,7 +12,7 @@ const CartItemSchema = new Schema(
   { timestamps: true },
 );
 
-const CartItem = model('CartItem', CartItemSchema);
+// const CartItem = model('CartItem', CartItemSchema);
 
 const OrderSchema = new Schema(
   {
@@ -37,6 +37,8 @@ const OrderSchema = new Schema(
   { timestamps: true },
 );
 
-const Order = model('Order', OrderSchema);
+// const Order = model('Order', OrderSchema);
 
-module.exports = { Order, CartItem };
+// module.exports = { Order, CartItem };
+
+export default model('Order', OrderSchema);

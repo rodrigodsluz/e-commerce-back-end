@@ -3,6 +3,11 @@ import { Schema, model } from 'mongoose';
 import crypto from 'crypto';
 
 import { v4 as uuid_v4 } from 'uuid';
+import { Request } from 'express';
+
+/* export interface UserInterface extends Request {
+  profile: any; // or any other type
+} */
 
 const UserSchema = new Schema(
   {

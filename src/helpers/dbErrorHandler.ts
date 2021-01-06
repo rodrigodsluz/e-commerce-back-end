@@ -21,28 +21,26 @@ const uniqueMessage = (error: { message: string }) => {
 /**
  * Get the erroror message from error object
  */
-exports.errorHandler = (error: {
-  code?: any;
-  errorors?: any;
-  message?: string;
-}) => {
-  let message = '';
+export default {
+  errorHandler(error: { message: string; code: any; errorors: any }) {
+    let message = '';
 
-  if (error.code) {
-    switch (error.code) {
-      case 11000:
-      case 11001:
-        message = uniqueMessage(error);
-        break;
-      default:
-        message = 'Something went wrong';
+    if (error.code) {
+      switch (error.code) {
+        case 11000:
+        case 11001:
+          message = uniqueMessage(error);
+          break;
+        default:
+          message = 'Something went wrong';
+      }
+    } else {
+      for (const errorName in error.errorors) {
+        if (error.errorors[errorName].message)
+          message = error.errorors[errorName].message;
+      }
     }
-  } else {
-    for (const errorName in error.errorors) {
-      if (error.errorors[errorName].message)
-        message = error.errorors[errorName].message;
-    }
-  }
 
-  return message;
+    return message;
+  },
 };
