@@ -95,7 +95,7 @@ export default {
     Order.find({ user: req.profile._id })
       .populate('user', '_id name')
       .sort('-created')
-      .exec((err, orders) => {
+      .exec((err: any, orders: any) => {
         if (err) {
           return res.status(400).json({
             error: errorHandler(err),

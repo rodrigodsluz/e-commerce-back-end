@@ -19,17 +19,17 @@ router.get('/signout', authController.signout);
 // ----------------------User routers----------------------
 router.param('userId', userController.userById);
 
-router.get(
+/* router.get(
   '/secret/:userId',
   requireSignin,
   authController.isAuth,
   authController.isAdmin,
-  (req, res) => {
+  (req: Request, res: Response) => {
     res.json({
       user: req.profile,
     });
   },
-);
+); */
 
 router.get(
   '/user/:userId',
