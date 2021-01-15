@@ -1,6 +1,7 @@
+import { Request, Response, NextFunction } from 'express';
 import Category from '../models/Category';
 
-import { errorHandler } from '../helpers/dbErrorHandler';
+// import errorHandler from '../helpers/dbErrorHandler';
 
 import Product from '../models/Product';
 

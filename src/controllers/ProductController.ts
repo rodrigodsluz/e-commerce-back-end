@@ -1,11 +1,12 @@
 import formidable from 'formidable';
 import _ from 'lodash';
 import fs from 'fs';
+import { Request, Response, NextFunction } from 'express';
 import Product from '../models/Product';
-import errorHandler from '../helpers/dbErrorHandler';
+// import errorHandler from '../helpers/dbErrorHandler';
 
 export default {
-  create(req, res) {
+  create(req: Request, res: Response) {
     const form = new formidable.IncomingForm();
     form.keepExtensions = true;
     form.parse(req, (err, fields, files) => {
@@ -50,7 +51,7 @@ export default {
         if (err) {
           console.log('PRODUCT CREATE ERROR ', err);
           return res.status(400).json({
-            error: errorHandler(err),
+            // error: errorHandler(err),
           });
         }
         res.json(result);
@@ -58,7 +59,7 @@ export default {
     });
   },
 
-  productById(req, res, next, id) {
+  productById(req: any, res: Response, next: NextFunction, id: any) {
     Product.findById(id)
       .populate('category')
       .exec((err, product) => {
@@ -72,26 +73,27 @@ export default {
       });
   },
 
-  read(req, res) {
+  read(req: any, res: Response) {
     req.product.photo = undefined;
     return res.json(req.product);
   },
 
-  remove(req, res) {
+  remove(req: any, res: Response) {
     const { product } = req;
-    product.remove((err, deletedProduct) => {
+    product.remove((err: any, deletedProduct: any) => {
       if (err) {
         return res.status(400).json({
-          error: errorHandler(err),
+          // error: errorHandler(err),
         });
       }
+      console.log(deletedProduct);
       res.json({
         message: 'Product deleted successfully',
       });
     });
   },
 
-  update(req, res) {
+  update(req: any, res: Response) {
     const form = new formidable.IncomingForm();
     form.keepExtensions = true;
     form.parse(req, (err, fields, files) => {
@@ -121,7 +123,7 @@ export default {
       product.save((err: any, result: any) => {
         if (err) {
           return res.status(400).json({
-            error: errorHandler(err),
+            // error: errorHandler(err),
           });
         }
         res.json(result);
@@ -136,7 +138,7 @@ export default {
    * if no params are sent, then all products are returned
    */
 
-  list(req, res) {
+  list(req: any, res: Response) {
     const order = req.query.order ? req.query.order : 'asc';
     const sortBy = req.query.sortBy ? req.query.sortBy : '_id';
     const limit = req.query.limit ? parseInt(req.query.limit) : 6;
@@ -177,7 +179,7 @@ export default {
       });
   },
 
-  listCategories(req, res) {
+  listCategories(res: Response) {
     Product.distinct('category', {}, (err, categories) => {
       if (err) {
         return res.status(400).json({
@@ -196,7 +198,7 @@ export default {
    * we will make api request and show the products to users based on what he wants
    */
 
-  listBySearch(req, res) {
+  listBySearch(req: any, res: Response) {
     const order = req.body.order ? req.body.order : 'desc';
     const sortBy = req.body.sortBy ? req.body.sortBy : '_id';
     const limit = req.body.limit ? parseInt(req.body.limit) : 100;
@@ -211,12 +213,16 @@ export default {
         if (key === 'price') {
           // gte -  greater than price [0-10]
           // lte - less than
+          const findArgs: any = {};
+
           findArgs[key] = {
             $gte: req.body.filters[key][0],
             $lte: req.body.filters[key][1],
           };
         } else {
-          findArgs[key] = req.body.filters[key];
+          const findArgs: any = {};
+
+          findArgs[key] = req.body.filters[key]!;
         }
       }
     }
@@ -240,7 +246,7 @@ export default {
       });
   },
 
-  photo(req, res, next) {
+  photo(req: any, res: Response, next: NextFunction) {
     if (req.product.photo.data) {
       res.set('Content-Type', req.product.photo.contentType);
       return res.send(req.product.photo.data);
@@ -248,9 +254,9 @@ export default {
     next();
   },
 
-  listSearch(req, res) {
+  listSearch(req: Request, res: Response) {
     // create query object to hold search value and category value
-    const query = {};
+    const query: any = {};
     // assign search value to query.name
     if (req.query.search) {
       query.name = { $regex: req.query.search, $options: 'i' };
@@ -263,7 +269,7 @@ export default {
       Product.find(query, (err, products) => {
         if (err) {
           return res.status(400).json({
-            error: errorHandler(err),
+            // error: errorHandler(err),
           });
         }
         res.json(products);
@@ -271,7 +277,7 @@ export default {
     }
   },
 
-  decreaseQuantity(req, res, next) {
+  decreaseQuantity(req: Request, res: Response, next: NextFunction) {
     const bulkOps = req.body.order.products.map(item => {
       return {
         updateOne: {
@@ -287,6 +293,7 @@ export default {
           error: 'Could not update product',
         });
       }
+      console.log(products);
       next();
     });
   },

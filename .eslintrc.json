@@ -29,7 +29,9 @@
       }
     ],
     "func-names": ["error", "never"],
-    "no-underscore-dangle": ["error", { "allowAfterThis": true }]
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "@typescript-eslint/no-explicit-any": "off"
+
   },
   "settings": {
     "import/resolver":{

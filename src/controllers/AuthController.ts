@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, Request, Response, NextFunction } from 'express';
 
 import jwt from 'jsonwebtoken'; // To generate signed token
 import expressJwt from 'express-jwt'; // For authorization check
@@ -80,7 +80,7 @@ export default {
 };
 
 export const requireSignin = expressJwt({
-  secret: process.env.JWT_SECRET,
+  secret: process.env.JWT_SECRET!,
   algorithms: ['HS256'], // added later
   userProperty: 'auth',
 });

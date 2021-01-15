@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 import User from '../models/User';
-import errorHandler from '../helpers/dbErrorHandler';
+// import errorHandler from '../helpers/dbErrorHandler';
 import Order from '../models/Order';
 
 export default {
@@ -23,7 +23,7 @@ export default {
     return res.json(req.profile);
   },
 
-  update(req: Request, res: Response) {
+  update(req: any, res: Response) {
     // console.log('UPDATE USER - req.user', req.user, 'UPDATE DATA', req.body);
     const { name, password } = req.body;
 
@@ -75,7 +75,7 @@ export default {
     );
   },
 
-  addOrderToUserHistory(req: Request, res: Response, next: NextFunction) {
+  addOrderToUserHistory(req: any, res: Response, next: NextFunction) {
     const history: {
       _id: any;
       name: any;
@@ -116,19 +116,22 @@ export default {
             error: 'Could not update user purchase history',
           });
         }
+        console.log(data);
         next();
       },
     );
   },
 
-  purchaseHistory(req: Request, res: Response) {
+  purchaseHistory(req: any, res: Response) {
     Order.find({ user: req.profile._id })
       .populate('user', '_id name')
       .sort('-created')
       .exec((err: any, orders: any) => {
         if (err) {
           return res.status(400).json({
-            error: errorHandler(err),
+            // console.log(err),
+            // error: errorHandler(err),
+            error: 'Strange error',
           });
         }
         res.json(orders);
