@@ -59,7 +59,7 @@ export default {
     res.json({ message: 'Signout success' });
   },
 
-  isAuth(req, res, next) {
+  isAuth(req: any, res: Response, next: NextFunction) {
     const user = req.profile && req.auth && req.profile._id == req.auth._id;
     if (!user) {
       return res.status(403).json({
@@ -69,7 +69,7 @@ export default {
     next();
   },
 
-  isAdmin(req, res, next) {
+  isAdmin(req: any, res: Response, next: NextFunction) {
     if (req.profile.role === 0) {
       return res.status(403).json({
         error: 'Admin resourse! Access denied',
