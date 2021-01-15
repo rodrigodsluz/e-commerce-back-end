@@ -166,14 +166,14 @@ router.get(
   requireSignin,
   authController.isAuth,
   authController.isAdmin,
-  orderController.getStatusValues,
+  // orderController.getStatusValues,
 );
 router.put(
   '/order/:orderId/status/:userId',
   requireSignin,
   authController.isAuth,
   authController.isAdmin,
-  orderController.updateOrderStatus,
+  // orderController.updateOrderStatus,
 );
 
 router.param('orderId', orderController.orderById);
