@@ -29,30 +29,42 @@ export default {
   signin(req: Request, res: Response) {
     // Find the user based on email
     const { email, password } = req.body;
-    User.findOne({ email }, (err, user) => {
-      if (err || !user) {
-        return res.status(400).json({
-          error: 'User with that email does not exist. Please signup!',
-        });
-      }
-      // If user is found make sure the email and password match
-      // Create authenticate method in user models
-      if (!user.authenticate(password)) {
-        return res.status(401).json({
-          error: 'Email and password dont math',
-        });
-      }
+    User.findOne(
+      { email },
+      (
+        err: any,
+        user: {
+          authenticate?: any;
+          _id: any;
+          name?: any;
+          email?: any;
+          role?: any;
+        },
+      ) => {
+        if (err || !user) {
+          return res.status(400).json({
+            error: 'User with that email does not exist. Please signup!',
+          });
+        }
+        // If user is found make sure the email and password match
+        // Create authenticate method in user models
+        if (!user.authenticate(password)) {
+          return res.status(401).json({
+            error: 'Email and password dont math',
+          });
+        }
 
-      // Generate a signed token with user id and secret
-      const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+        // Generate a signed token with user id and secret
+        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET!);
 
-      // Persist the token as 't' in cookie with expire date
-      res.cookie('t', token, { expire: new Date() + 9999 });
+        // Persist the token as 't' in cookie with expire date
+        res.cookie('t', token, { expires: new Date() });
 
-      // Return response with user and token to frontend client
-      const { _id, name, email, role } = user;
-      return res.json({ token, user: { _id, email, name, role } });
-    });
+        // Return response with user and token to frontend client
+        const { _id, name, email, role } = user;
+        return res.json({ token, user: { _id, email, name, role } });
+      },
+    );
   },
 
   signout(req: Request, res: Response) {
