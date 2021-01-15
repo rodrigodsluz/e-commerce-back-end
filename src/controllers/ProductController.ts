@@ -279,14 +279,16 @@ export default {
   },
 
   decreaseQuantity(req: Request, res: Response, next: NextFunction) {
-    const bulkOps = req.body.order.products.map(item => {
-      return {
-        updateOne: {
-          filter: { _id: item._id },
-          update: { $inc: { quantity: -item.count, sold: +item.count } },
-        },
-      };
-    });
+    const bulkOps = req.body.order.products.map(
+      (item: { _id: any; count: number }) => {
+        return {
+          updateOne: {
+            filter: { _id: item._id },
+            update: { $inc: { quantity: -item.count, sold: +item.count } },
+          },
+        };
+      },
+    );
 
     Product.bulkWrite(bulkOps, {}, (error, products) => {
       if (error) {
