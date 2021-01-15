@@ -1,4 +1,4 @@
-import { Request, Response, Request, Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 
 import jwt from 'jsonwebtoken'; // To generate signed token
 import expressJwt from 'express-jwt'; // For authorization check
