@@ -5,7 +5,7 @@ import expressJwt from 'express-jwt'; // For authorization check
 
 import User from '../models/User';
 
-import errorHandler from '../helpers/dbErrorHandler';
+// import errorHandler from '../helpers/dbErrorHandler';
 
 export default {
   signup(req: Request, res: Response) {
@@ -14,7 +14,7 @@ export default {
     user.save((err, user) => {
       if (err) {
         return res.status(400).json({
-          err: errorHandler(err),
+          // err: errorHandler(err),
         });
       }
       user.salt = undefined;
