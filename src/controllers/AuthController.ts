@@ -11,7 +11,8 @@ export default {
   signup(req: Request, res: Response) {
     // console.log('req.body', req.body);
     const user = new User(req.body);
-    user.save((err, user) => {
+    // eslint-disable-next-line no-shadow
+    user.save((err, user: any) => {
       if (err) {
         return res.status(400).json({
           // err: errorHandler(err),
