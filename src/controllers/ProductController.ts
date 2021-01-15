@@ -164,7 +164,7 @@ export default {
    * other products that has the same category, will be returned
    */
 
-  listRelated(req, res) {
+  listRelated(req: any, res: Response) {
     const limit = req.query.limit ? parseInt(req.query.limit) : 6;
 
     Product.find({ _id: { $ne: req.product }, category: req.product.category })
