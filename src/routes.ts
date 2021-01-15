@@ -4,7 +4,7 @@ import authController, { requireSignin } from './controllers/AuthController';
 import userController from './controllers/UserController';
 import categoryController from './controllers/CategoryController';
 import productController from './controllers/ProductController';
-import braintreeController from './controllers/BraintreeController';
+// import braintreeController from './controllers/BraintreeController';
 import orderController from './controllers/OrderController';
 
 import userSignupValidator from './validator';
@@ -129,7 +129,7 @@ router.post('/products/by/search', productController.listBySearch);
 router.get('/product/photo/:productId', productController.photo);
 
 // ----------------------Braintree payment----------------------
-router.get(
+/* router.get(
   '/braintree/getToken/:userId',
   requireSignin,
   authController.isAuth,
@@ -140,7 +140,7 @@ router.post(
   requireSignin,
   authController.isAuth,
   braintreeController.processPayment,
-);
+); */
 
 // ----------------------Orders----------------------
 

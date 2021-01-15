@@ -18,7 +18,7 @@ export default {
     });
   },
 
-  categoryById(req: any, res: Response, next: NeNextFunction, id: any) {
+  categoryById(req: any, res: Response, next: NextFunction, id: any) {
     Category.findById(id).exec((err, category) => {
       if (err || !category) {
         return res.status(400).json({
