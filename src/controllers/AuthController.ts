@@ -5,7 +5,7 @@ import expressJwt from 'express-jwt'; // For authorization check
 
 import User from '../models/User';
 
-import { errorHandler } from '../helpers/dbErrorHandler';
+import errorHandler from '../helpers/dbErrorHandler';
 
 export default {
   signup(req: Request, res: Response) {
